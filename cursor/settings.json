@@ -1,0 +1,67 @@
+{
+    "workbench.colorTheme": "August - Gruvbox",
+    "editor.accessibilitySupport": "off",
+    "application.shellEnvironmentResolutionTimeout": 90,
+    "security.workspace.trust.untrustedFiles": "open",
+    "workbench.iconTheme": "material-icon-theme",
+    "redhat.telemetry.enabled": false,
+    "editor.fontSize": 13,
+    "terminal.integrated.fontSize": 13,
+    "window.zoomLevel": 1.75,
+    "editor.suggestLineHeight": 24,
+    "rest-client.environmentVariables": {
+        "$shared": {
+            "email": "",
+            "password": "",
+            "clientId": "",
+            "clientSecret": ""
+        }
+    },
+    "python.analysis.inlayHints.functionReturnTypes": true,
+    "python.defaultInterpreterPath": "/Users/vj/.pyenv/versions/3.11.9/bin/python",
+    "python.globalModuleInstallation": true,
+    "python.analysis.autoImportCompletions": true,
+    "python.testing.unittestEnabled": true,
+    "material-icon-theme.folders.theme": "specific",
+    "[terraform-vars]": {
+        "editor.defaultFormatter": "hashicorp.terraform"
+    },
+    "files.associations": {
+        "*.hcl": "terraform"
+    },
+    "[terraform]": {
+        "editor.defaultFormatter": "hashicorp.terraform"
+    },
+    "[yaml]": {
+        "editor.defaultFormatter": "redhat.vscode-yaml"
+    },
+    "editor.formatOnSave": false,
+    "yaml.schemas": {
+        "kubernetes": [
+            "*.yaml",
+            "*.yml"
+        ]
+    },
+    "[json]": {
+        "editor.defaultFormatter": "vscode.json-language-features"
+    },
+    "[jsonc]": {
+        "editor.defaultFormatter": "vscode.json-language-features"
+    },
+    "task.problemMatchers.neverPrompt": {
+        "shell": true
+    },
+    "files.autoSave": "afterDelay",
+    "diffEditor.ignoreTrimWhitespace": false,
+    "git.autofetch": true,
+    "editor.fontFamily": "'Fira Code'",
+    "editor.fontLigatures": true,
+    "workbench.colorCustomizations": {
+        "terminal.foreground": "#00d700f5",
+        "terminalCursor.foreground": "#00d700f5",
+        "terminalCursor.background": "#00d700f5"
+    },
+    "terminal.integrated.cursorBlinking": true,
+    "terminal.integrated.cursorStyle": "block",
+    "terminal.integrated.fontFamily": "'Fira Code'",
+}

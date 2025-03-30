@@ -1,0 +1,25 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "Pomerium Stage Read",
+            "type": "shell",
+            "command": "pomerium-cli tcp db-dev-read.pomerium.web.stage.hubs.com:5432 --listen :5432"
+        },
+        {
+            "label": "Pomerium Stage Write",
+            "type": "shell",
+            "command": "pomerium-cli tcp db-dev-write.pomerium.web.stage.hubs.com:5432 --listen :5432"
+        },
+        {
+            "label": "Pomerium Prod Read",
+            "type": "shell",
+            "command": "pomerium-cli tcp db-dev-read.pomerium.web.prod.hubs.com:5432 --listen :5432"
+        },
+        {
+            "label": "Pomerium Prod Write",
+            "type": "shell",
+            "command": "pomerium-cli tcp db-dev-write.pomerium.web.prod.hubs.com:5432 --listen :5432"
+        }
+    ]
+}

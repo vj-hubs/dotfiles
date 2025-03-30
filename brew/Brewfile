@@ -1,0 +1,40 @@
+# Taps
+tap "homebrew/core"
+tap "homebrew/cask"
+tap "homebrew/cask-fonts"
+
+# Development Tools
+brew "git"
+brew "gh"
+brew "jq"
+brew "direnv"
+brew "starship"
+brew "shellcheck"
+brew "tree"
+brew "pgcli"
+brew "postgresql@14"
+
+# Kubernetes Tools
+brew "k9s"
+brew "kubecolor"
+brew "kubectx"
+brew "kubernetes-cli"
+brew "helm"
+brew "kind"
+
+# Infrastructure Tools
+brew "terraform"
+brew "terragrunt"
+brew "aws-vault"
+brew "awscli"
+brew "azure-cli"
+brew "pomerium-cli"
+
+# Python Tools
+brew "pyenv"
+brew "python@3.12"
+
+# Applications
+cask "aws-vault"
+cask "font-fira-code"
+cask "hiddenbar" 
