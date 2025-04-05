@@ -11,7 +11,7 @@ command_timeout = 3600000
 scan_timeout = 500
 
 # Define the format/order of prompt elements
-format = """(bold white)
+format = """
 $directory\
 $git_branch\
 $git_commit\
@@ -19,11 +19,65 @@ $git_state\
 $git_status\
 $docker_context\
 $python\
+$package\
+$c\
+$cmake\
+$cobol\
+$daml\
+$dart\
+$deno\
+$dotnet\
+$elixir\
+$elm\
+$erlang\
+$fennel\
+$golang\
+$guix_shell\
+$haskell\
+$haxe\
+$helm\
+$java\
+$julia\
+$kotlin\
+$gradle\
+$lua\
+$nim\
+$nodejs\
+$ocaml\
+$opa\
+$perl\
+$php\
+$pulumi\
+$purescript\
+$raku\
+$rlang\
+$red\
+$ruby\
+$rust\
+$scala\
+$solidity\
+$swift\
+$terraform\
+$vlang\
+$vagrant\
+$zig\
+$buf\
+$conda\
+$meson\
+$spack\
+$memory_usage\
+$gcloud\
+$openstack\
+$azure\
+$crystal\
+$custom\
+$status\
+$os\
+$battery\
 $kubernetes\
 $aws\
-$line_break\
-$time\
-$character
+$cmd_duration
+[╰─](white)$time$character\
 """
 [character]
 success_symbol = '[ ❯](bold green)'
