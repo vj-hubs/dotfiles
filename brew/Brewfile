@@ -36,5 +36,5 @@ brew "python@3.12"
 
 # Applications
 cask "aws-vault"
-cask "font-fira-code"
+cask "font-ubuntu-mono-nerd-font"
 cask "hiddenbar" 
