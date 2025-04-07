@@ -6,11 +6,15 @@ export TERRAGRUNT_NON_INTERACTIVE=true
 export TERRAGRUNT_IGNORE_EXTERNAL_DEPENDENCIES=true
 export TERRAGRUNT_FETCH_DEPENDENCY_OUTPUT_FROM_STATE=true
 export TF_CLI_CONFIG_FILE="$HOME/.terraform.d/terraform.rc"
+export DOCKER_DEFAULT_PLATFORM="linux/amd64"
 plugins=(git
+        z
+        aliases
         #kube-ps1
         zsh-autosuggestions
         #zsh-autocomplete
-        fzf-zsh-plugin)
+        #fzf-zsh-plugin
+        )
 eval "$(starship init zsh)"
 source $ZSH/oh-my-zsh.sh
 export PYENV_ROOT="$HOME/.pyenv"
@@ -45,7 +49,6 @@ alias cmds='cursor "/Users/vj/Library/CloudStorage/OneDrive-ProtoLabs,Inc/Backup
 alias notebook='nohup jupyter-notebook & disown'
 alias jupyter='docker rm pyspark && docker run -d -p 8888:8888 -e NB_UID=1000 -e GRANT_SUDO=yes --user root --name pyspark -v /Users/vj/Work/Git:/home/jovyan/work jupyter/pyspark-notebook && docker logs pyspark'export PATH="/usr/local/opt/libpq/bin:$PATH"
 alias activate_poetry="source \"\$(poetry env list --full-path | grep Activated | cut -d' ' -f1 )/bin/activate\""
-dev
 ns() {
     kubectl config set-context --current --namespace=$1
 }
@@ -55,24 +58,24 @@ vs() {
     cursor .
 }
 
-vsc() {
-    local REPO_DIR=~/Work/Git/coreops
+# vsc() {
+#     local REPO_DIR=~/Work/Git/coreops
 
-    if [[ -d "$REPO_DIR/$1" ]]; then
-        cd "$REPO_DIR/$1" || return
-        cursor .
-    else
-        echo "Repository '$1' not found in $REPO_DIR"
-    fi
-}
+#     if [[ -d "$REPO_DIR/$1" ]]; then
+#         cd "$REPO_DIR/$1" || return
+#         cursor .
+#     else
+#         echo "Repository '$1' not found in $REPO_DIR"
+#     fi
+# }
 
 # Zsh completion function
-_vs_completion() {
-    local REPO_DIR=~/Work/Git/coreops
-    compadd $(ls -d $REPO_DIR/*/ 2>/dev/null | xargs -n 1 basename)
-}
+# _vs_completion() {
+#     local REPO_DIR=~/Work/Git/coreops
+#     compadd $(ls -d $REPO_DIR/*/ 2>/dev/null | xargs -n 1 basename)
+# }
 
-compdef _vs_completion vsc
+# compdef _vs_completion vsc
 
 export PATH="/usr/local/opt/libpq/bin:$PATH"
 export LDFLAGS="-L/usr/local/opt/libpq/lib"
@@ -83,9 +86,9 @@ export PKG_CONFIG_PATH="/usr/local/opt/libpq/lib/pkgconfig"
 alias uninstall-spyder=/Users/vj/Library/spyder-6/uninstall-spyder.sh
 # <<< Added by Spyder <<<
 # The following lines have been added by Docker Desktop to enable Docker CLI completions.
-fpath=(/Users/vj/.docker/completions $fpath)
-autoload -Uz compinit
-compinit
+# fpath=(/Users/vj/.docker/completions $fpath)
+# autoload -Uz compinit
+# compinit
 # End of Docker CLI completions
 
 cp ~/.zshrc "/Users/vj/Library/CloudStorage/OneDrive-ProtoLabs,Inc/Backup/zshrc"
