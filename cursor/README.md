@@ -2,6 +2,13 @@
 
 This directory contains configuration files for the Cursor IDE.
 
+## Initial Setup
+
+On macOS, you may need to code sign the Cursor application before using it. Run the following command:
+```bash
+codesign --force --deep --sign - /Applications/Cursor.app
+```
+
 ## File Locations
 
 The configuration files are stored in:
@@ -80,4 +87,4 @@ mkdir -p ~/Library/Application\ Support/Cursor/User/
 cp ./settings.json ~/Library/Application\ Support/Cursor/User/settings.json
 cp ./keybindings.json ~/Library/Application\ Support/Cursor/User/keybindings.json
 cp ./tasks.json ~/Library/Application\ Support/Cursor/User/tasks.json
-``` 
+```
