@@ -65,4 +65,24 @@ brew upgrade
 
 # Cleanup old versions
 brew cleanup
-``` 
+```
+
+### To install the essential tools
+```
+brew install act \
+helm \
+pomerium-cli \
+terraform \
+terragrunt \
+aws-vault \
+awscli \
+jq \
+kind \
+k9s \
+kubernetes-cli \
+kubecolor \
+starship \
+cursor \
+docker-credential-helper \
+imagemagick
+```
