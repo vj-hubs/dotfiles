@@ -2,6 +2,7 @@
 tap "homebrew/core"
 tap "homebrew/cask"
 tap "homebrew/cask-fonts"
+tap "pomerium/pomerium"
 
 # Development Tools
 brew "git"

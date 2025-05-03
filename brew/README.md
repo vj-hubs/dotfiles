@@ -71,7 +71,6 @@ brew cleanup
 ```
 brew install act \
 helm \
-pomerium-cli \
 terraform \
 terragrunt \
 aws-vault \
@@ -82,7 +81,6 @@ k9s \
 kubernetes-cli \
 kubecolor \
 starship \
-cursor \
 docker-credential-helper \
 imagemagick
 ```
