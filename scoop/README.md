@@ -15,6 +15,7 @@ This directory contains configuration files and scripts for managing Windows pac
 
 ```powershell
 # Allow script execution
+Set-ExecutionPolicy -Scope Process -ExecutionPolicy Bypass
 Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser
 
 # Install Scoop
