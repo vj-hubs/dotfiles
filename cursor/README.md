@@ -64,6 +64,12 @@ cp ~/Library/Application\ Support/Cursor/User/tasks.json ./tasks.json
 cp ./tasks.json ~/Library/Application\ Support/Cursor/User/tasks.json
 ```
 
+### clean_cursor.sh
+- **Purpose**: Script to clean Cursor's history and cache
+- **Usage**:
+  ```bash
+  ./clean_cursor.sh --help
+  ```
 ## Bulk Operations
 
 ### Export All Configurations
