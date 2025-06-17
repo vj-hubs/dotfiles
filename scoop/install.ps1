@@ -34,6 +34,9 @@ git config --global credential.helper manager
 if (-not (scoop bucket list | Select-String "extras")) {
     Write-Host "Adding extras bucket..." -ForegroundColor Yellow
     scoop bucket add extras
+    scoop bucket add versions
+    scoop bucket add knox-scoop https://github.com/KNOXDEV/knox-scoop
+    scoop bucket add nonportable
 }
 
 # Install packages
@@ -44,8 +47,12 @@ $packages = @(
     "extras/glazewm",
     "extras/zebar",
     "extras/motrix",
-    "extras/cursor",
-    "notepadplusplus"
+    "versions/cursor-latest",
+    "notepadplusplus",
+    "extras/unigetui",
+    "scoop-backup",
+    "extras/microsoft-teams",
+    "nonportable/grammarly-np"
 )
 
 foreach ($package in $packages) {

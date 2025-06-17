@@ -23,7 +23,7 @@ Write-Host "Please restart your computer to complete WSL installation." -Foregro
 Write-Host "After restart, run the following commands in WSL:" -ForegroundColor Yellow
 Write-Host @"
 sudo apt-get update
-sudo apt-get install build-essential
+sudo apt-get install build-essential unzip
 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 echo 'eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"' >> ~/.bashrc
 eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
