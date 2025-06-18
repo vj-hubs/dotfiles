@@ -70,17 +70,22 @@ brew cleanup
 ### To install the essential tools
 ```
 brew install act \
-helm \
-terraform \
-terragrunt \
 aws-vault \
 awscli \
+docker-credential-helper \
+helm \
+imagemagick \
 jq \
-kind \
 k9s \
+kind \
 kubernetes-cli \
 kubecolor \
+pgcli \
+pomerium \
+postgresql@16 \
+pyenv \
 starship \
-docker-credential-helper \
-imagemagick
+tcl-tk \
+terraform \
+terragrunt
 ```
