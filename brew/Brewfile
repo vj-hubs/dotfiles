@@ -14,6 +14,8 @@ brew "shellcheck"
 brew "tree"
 brew "pgcli"
 brew "postgresql@14"
+brew "zsh-autosuggestions"
+brew "gcc"
 
 # Kubernetes Tools
 brew "k9s"

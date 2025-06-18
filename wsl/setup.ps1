@@ -23,11 +23,13 @@ Write-Host "Please restart your computer to complete WSL installation." -Foregro
 Write-Host "After restart, run the following commands in WSL:" -ForegroundColor Yellow
 Write-Host @"
 sudo apt-get update
-sudo apt-get install build-essential unzip
+sudo apt-get install build-essential unzip zsh -y
+sudo chsh -s /usr/bin/zsh $USER
 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
-echo 'eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"' >> ~/.bashrc
+echo 'eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"' >> ~/.zshrc
 eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
-echo 'eval -- "$(/home/linuxbrew/.linuxbrew/bin/starship init bash --print-full-init)"' >> ~/.bashrc
-brew install gcc
-bash -c "$(curl -fsSL https://raw.githubusercontent.com/ohmybash/oh-my-bash/master/tools/install.sh)"
+echo 'eval -- "$(/home/linuxbrew/.linuxbrew/bin/starship init zsh --print-full-init)"' >> ~/.zshrc
+brew install gcc zsh-autosuggestions
+sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended
+echo 'source /home/linuxbrew/.linuxbrew/share/zsh-autosuggestions/zsh-autosuggestions.zsh' >> ~/.zshrc
 "@ -ForegroundColor Cyan 
