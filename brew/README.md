@@ -86,6 +86,6 @@ postgresql@16 \
 pyenv \
 starship \
 tcl-tk \
-terraform \
-terragrunt
+tfenv \
+tgenv
 ```

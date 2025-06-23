@@ -26,8 +26,8 @@ brew "helm"
 brew "kind"
 
 # Infrastructure Tools
-brew "terraform"
-brew "terragrunt"
+brew "tfenv"
+brew "tgenv"
 brew "aws-vault"
 brew "awscli"
 brew "azure-cli"
