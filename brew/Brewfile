@@ -16,6 +16,7 @@ brew "pgcli"
 brew "postgresql@14"
 brew "zsh-autosuggestions"
 brew "gcc"
+brew "lolcat"
 
 # Kubernetes Tools
 brew "k9s"

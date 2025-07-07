@@ -97,3 +97,18 @@ cp ~/.zshrc "/Users/vj/Library/CloudStorage/OneDrive-ProtoLabs,Inc/Backup/zshrc"
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+
+# [[ -f ~/.inshellisense/zsh/init.zsh ]] && source ~/.inshellisense/zsh/init.zsh
+
+# if [[ -z "$LOLCAT_ACTIVE" && -t 1 && -x "$(command -v lolcat)" && -x "$(command -v script)" ]]; then
+#     export LOLCAT_ACTIVE=1
+#     script -q /dev/null zsh | lolcat -f
+#     exit $?
+# fi
+
+
+# Pipe command output to lolcat
+_lc() {
+    "$@" | lolcat
+}
+alias lc='_lc '
