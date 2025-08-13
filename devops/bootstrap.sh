@@ -53,8 +53,8 @@ if $osx; then
   fi
 fi
 
-# --- tempdir for config
-tmpcfg="/tmp/bootstrap-config"
+# --- persistent config directory in home folder
+tmpcfg="$HOME/.devops-config"
 mkdir -p "$tmpcfg"
 
 # --- determine real location of bootstrap script
@@ -134,21 +134,21 @@ mkdir -p "$binpath"/.md5
     > "$tmpcfg/kubeconfig.yaml"
 
   # Copy docker config
-  mkdir -p "$tmpcfg/docker" && cp "$srcpath/config/docker.json" "$tmpcfg/docker/config.json"
+  mkdir -p "$tmpcfg/docker" && cp "$HOME/.docker/config.json" "$tmpcfg/docker/config.json"
 
   if ! command -v devops >/dev/null; then
-    echo -e "\nYou can symlink this script for convenience, for example:\n\n    ln -s $projectroot/scripts/bootstrap.sh /usr/local/bin/devops\n"
+    echo -e "\nYou can symlink this script for convenience, for example:\n\n    ln -s $projectroot/devops/bootstrap.sh /usr/local/bin/devops\n"
   fi
 } >&2
 
 # --- Add exports to shell rc file if not already present
 rc_file="$HOME/.bashrc"
-if test "$osx" = true; then
-  rc_file="$HOME/.zshrc"  # macOS default shell is zsh
+if test "$osx" = true -o "$SHELL" = "/usr/bin/zsh"; then
+  rc_file="$HOME/.zshrc"  # macOS default shell is zsh or user is using zsh
 fi
 
 if test -f "$rc_file"; then
-  marker="# Added from infra/scripts/bootstrap.sh"
+  marker="# Added from devops/bootstrap.sh"
   if ! grep -q "$marker" "$rc_file" 2>/dev/null; then
     echo "" >> "$rc_file"
     echo "$marker" >> "$rc_file"

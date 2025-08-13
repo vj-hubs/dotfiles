@@ -141,13 +141,15 @@ alias aws-prod-data='unset AWS_VAULT && aws-vault exec hubs-prod_data'
 alias tg='terragrunt'
 alias tgfmt='terragrunt hclfmt --terragrunt-check --terragrunt-diff'
 alias tf='terraform'
-alias spyder='nohup spyder --new-instance option & disown'
+#alias spyder='nohup spyder --new-instance option & disown'
 alias cmds='cursor ~/Git/devel/cmds.txt'
 alias notebook='nohup jupyter-notebook & disown'
 alias jupyter='docker rm pyspark && docker run -d -p 8888:8888 -e NB_UID=1000 -e GRANT_SUDO=yes --user root --name pyspark -v ~/Git:/home/jovyan/work jupyter/pyspark-notebook && docker logs pyspark'export PATH="/usr/local/opt/libpq/bin:$PATH"
 alias activate_poetry="source \"\$(poetry env list --full-path | grep Activated | cut -d' ' -f1 )/bin/activate\""
 alias pomerium-cli='/mnt/c/Users/User/scoop/shims/pomerium-cli.exe'
 alias docker-login='aws-vault exec 3dhubs-management_shared-resources -- aws ecr get-login-password --region eu-west-1 | docker login --username AWS --password-stdin 312805905296.dkr.ecr.eu-west-1.amazonaws.com'
+alias devel='cd /mnt/e/devel'
+
 ns() {
     kubectl config set-context --current --namespace=$1
 }
@@ -158,6 +160,7 @@ vs() {
 }
 
 cp ~/.zshrc /mnt/e/devel/
+cp ~/.zshrc /home/devops/Git/development/dotfiles/zsh/.zshrc_wsl
 [[ -f ~/.inshellisense/zsh/init.zsh ]] && source ~/.inshellisense/zsh/init.zsh
 export DISABLE_UNTRACKED_FILES_DIRTY="true"
 export TERRAGRUNT_TFPATH="terraform"
@@ -177,8 +180,18 @@ export PATH="/home/linuxbrew/.linuxbrew/opt/postgresql@16/bin:$PATH"
 export LDFLAGS="-L/home/linuxbrew/.linuxbrew/opt/postgresql@16/lib"
 export CPPFLAGS="-I/home/linuxbrew/.linuxbrew/opt/postgresql@16/include"
 
-# Added from infra/scripts/bootstrap.sh
+
+export PYENV_ROOT="$HOME/.pyenv"
+[[ -d $PYENV_ROOT/bin ]] && export PATH="$PYENV_ROOT/bin:$PATH"
+eval "$(pyenv init - zsh)"
+
+_lc() {
+    "$@" | lolcat
+}
+alias lc='_lc '
+
+# Added from devops/bootstrap.sh
 export PATH="/home/devops/.devops-bin:$PATH"
-export AWS_CONFIG_FILE="/home/devops/Git/coreops/infra/admin/org/generated/aws-vault.cfg"
-export KUBECONFIG="/tmp/bootstrap-config/kubeconfig.yaml"
-export DOCKER_CONFIG="/tmp/bootstrap-config/docker"
+export AWS_CONFIG_FILE="/home/devops/Git/development/dotfiles/admin/org/generated/aws-vault.cfg"
+export KUBECONFIG="/home/devops/.devops-config/kubeconfig.yaml"
+export DOCKER_CONFIG="/home/devops/.devops-config/docker"
