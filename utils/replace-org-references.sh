@@ -50,9 +50,8 @@ if ! git diff --quiet || ! git diff --cached --quiet; then
 fi
 
 if git show-ref --verify --quiet "refs/heads/${BRANCH_NAME}"; then
-  echo "Local branch already exists: ${BRANCH_NAME}"
-  echo "Delete it or set BRANCH_NAME to something else."
-  exit 1
+  echo "Local branch already exists: ${BRANCH_NAME} — deleting it."
+  git branch -D "${BRANCH_NAME}"
 fi
 
 git switch -c "${BRANCH_NAME}"
@@ -69,14 +68,20 @@ list_target_files() {
     || true
 }
 
-mapfile -t FILES < <(list_target_files)
+FILES=()
+while IFS= read -r line; do
+  FILES+=("$line")
+done < <(list_target_files)
 
 if [[ "${#FILES[@]}" -eq 0 ]]; then
   echo "No target YAML files found to scan."
   exit 0
 fi
 
-mapfile -t MATCHING_FILES < <(printf '%s\n' "${FILES[@]}" | xargs -r git grep -l --fixed-strings "${OLD_ORG}/" || true)
+MATCHING_FILES=()
+while IFS= read -r line; do
+  [[ -n "$line" ]] && MATCHING_FILES+=("$line")
+done < <(printf '%s\n' "${FILES[@]}" | xargs git grep -l --fixed-strings "${OLD_ORG}/" 2>/dev/null || true)
 
 if [[ "${#MATCHING_FILES[@]}" -eq 0 ]]; then
   echo "No matches found for '${OLD_ORG}/' in target YAML files."
@@ -100,4 +105,4 @@ git status --porcelain
 echo
 echo "Next steps:"
 echo "  - Inspect diffs: git diff"
-echo "  - Commit:        git commit -am \"chore: migrate ${OLD_ORG} -> ${NEW_ORG} in actions\""
+echo "  - Commit:        git commit -am \"replace ${OLD_ORG} to ${NEW_ORG}\""
