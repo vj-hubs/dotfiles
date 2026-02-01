@@ -1,17 +1,18 @@
 #!/usr/bin/env python3
 """
-keep_awake.py – Periodically move the cursor by 1 px to keep the Mac awake.
+awake.py – Periodically move the cursor by 1 px to keep the system awake.
 
 Usage
 -----
-$ python keep_awake.py            # move every 60 s
-$ python keep_awake.py -i 300     # move every 5 m
-$ python keep_awake.py -i 30 -d   # run as a daemon in the background
+$ python awake.py            # move every 60 s
+$ python awake.py -i 300     # move every 5 m
+$ python awake.py -i 30 -d   # run as a daemon in the background
 """
 
 import argparse
-import contextlib
+import os
 import signal
+import subprocess
 import sys
 import time
 
@@ -29,43 +30,39 @@ def parse_args() -> argparse.Namespace:
     p.add_argument(
         "-d", "--daemon",
         action="store_true",
-        help="Fork into the background after the first move."
+        help="Run in the background."
     )
     return p.parse_args()
 
 
-@contextlib.contextmanager
-def daemonize(enabled: bool):
-    """
-    If *enabled* is True, fork and let the parent exit so the child continues
-    in the background (simple 'double-fork' daemon).
-    """
-    if not enabled:
-        yield
+def _spawn_detached_background_process() -> None:
+    """Re-exec this script detached."""
+    if os.environ.get("AWAKE_DAEMON") == "1":
         return
 
-    # First fork
-    pid = os.fork()
-    if pid > 0:
-        # Exit parent
-        sys.exit(0)
+    # Relaunch with the same args but without -d/--daemon to avoid recursion.
+    child_argv = [sys.executable, os.path.abspath(__file__)]
+    for arg in sys.argv[1:]:
+        if arg in ("-d", "--daemon"):
+            continue
+        child_argv.append(arg)
 
-    # Detach from terminal & create new session
-    os.setsid()
+    env = dict(os.environ)
+    env["AWAKE_DAEMON"] = "1"
 
-    # Second fork so the daemon can't acquire a controlling TTY
-    pid = os.fork()
-    if pid > 0:
-        sys.exit(0)
+    with open("/dev/null", "rb", 0) as devnull_in, open("/dev/null", "wb", 0) as devnull_out:
+        p = subprocess.Popen(
+            child_argv,
+            stdin=devnull_in,
+            stdout=devnull_out,
+            stderr=devnull_out,
+            close_fds=True,
+            start_new_session=True,
+            env=env,
+        )
 
-    # Redirect stdio to /dev/null
-    with open("/dev/null", "rb", 0) as devnull_in, \
-         open("/dev/null", "wb", 0) as devnull_out:
-        os.dup2(devnull_in.fileno(), sys.stdin.fileno())
-        os.dup2(devnull_out.fileno(), sys.stdout.fileno())
-        os.dup2(devnull_out.fileno(), sys.stderr.fileno())
-
-    yield
+    print(f"Started background process (pid={p.pid}).")
+    raise SystemExit(0)
 
 
 def wiggle():
@@ -84,6 +81,8 @@ def wiggle():
 
 def main() -> None:
     args = parse_args()
+    if args.daemon:
+        _spawn_detached_background_process()
     stop = False
 
     def _handler(signum, frame):
@@ -94,16 +93,13 @@ def main() -> None:
     signal.signal(signal.SIGINT, _handler)
     signal.signal(signal.SIGTERM, _handler)
 
-    with daemonize(args.daemon):
-        while not stop:
-            wiggle()
-            for _ in range(int(args.interval / 0.2)):
-                if stop:
-                    break
-                time.sleep(0.2)
+    while not stop:
+        wiggle()
+        for _ in range(int(args.interval / 0.2)):
+            if stop:
+                break
+            time.sleep(0.2)
 
 
 if __name__ == "__main__":
-    # Lazy-import os for daemonize only when necessary
-    import os  # noqa: WPS433 (import at top constrained by daemonize design)
     main()
