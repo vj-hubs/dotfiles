@@ -10,6 +10,7 @@ $ python awake.py -i 30 -d   # run as a daemon in the background
 """
 
 import argparse
+import atexit
 import os
 import signal
 import subprocess
@@ -17,6 +18,38 @@ import sys
 import time
 
 import pyautogui
+
+PID_FILE = "/tmp/awake.pid"
+
+
+def _is_already_running() -> bool:
+    """Check if another instance is already running via PID file."""
+    if not os.path.exists(PID_FILE):
+        return False
+    try:
+        with open(PID_FILE) as f:
+            pid = int(f.read().strip())
+        # Check if process is alive
+        os.kill(pid, 0)
+        return True
+    except (ValueError, ProcessLookupError, PermissionError):
+        # Invalid PID, process dead, or permission issue - safe to start
+        return False
+
+
+def _write_pid_file() -> None:
+    """Write current PID to file and register cleanup."""
+    with open(PID_FILE, "w") as f:
+        f.write(str(os.getpid()))
+    atexit.register(_cleanup_pid_file)
+
+
+def _cleanup_pid_file() -> None:
+    """Remove PID file on exit."""
+    try:
+        os.remove(PID_FILE)
+    except OSError:
+        pass
 
 
 def parse_args() -> argparse.Namespace:
@@ -81,8 +114,17 @@ def wiggle():
 
 def main() -> None:
     args = parse_args()
+
+    # Prevent duplicate instances (check before spawning daemon so message is visible)
+    if _is_already_running():
+        print("awake.py is already running. Exiting.")
+        sys.exit(0)
+
     if args.daemon:
         _spawn_detached_background_process()
+
+    _write_pid_file()
+
     stop = False
 
     def _handler(signum, frame):
