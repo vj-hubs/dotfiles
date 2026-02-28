@@ -1,0 +1,45 @@
+# Taps
+tap "pomerium/tap"
+
+# Development Tools
+brew "act"
+brew "direnv"
+brew "docker-credential-helper"
+brew "gcc"
+brew "gh"
+brew "git"
+brew "imagemagick"
+brew "jq"
+brew "lolcat"
+brew "pgcli"
+brew "postgresql@14"
+brew "shellcheck"
+brew "starship"
+brew "tcl-tk"
+brew "tree"
+brew "zsh-autosuggestions"
+
+# Kubernetes Tools
+brew "k9s"
+brew "kubecolor"
+brew "kubectx"
+brew "kubernetes-cli"
+brew "helm"
+brew "kind"
+
+# Infrastructure Tools
+brew "awscli"
+brew "azure-cli"
+brew "pomerium-cli"
+brew "tfenv"
+brew "tgenv"
+
+# Python Tools
+brew "pyenv"
+brew "python@3.12"
+
+# Applications
+cask "aws-vault"
+cask "font-ubuntu-mono-nerd-font"
+cask "cursor"
+cask "hiddenbar"
