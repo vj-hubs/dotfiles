@@ -22,11 +22,11 @@ source $ZSH/oh-my-zsh.sh
 export PYENV_ROOT="$HOME/.pyenv"
 # RPS1='$(kube_ps1)'
 alias code='cursor'
-alias dev='cd ~/Work/Git'
-alias de='cd ~/Work/Git/data-engineering'
-alias repos='cd ~/Work/Git/repos'
-alias learn='cd ~/Work/Git/development'
-alias sts='sh ~/Work/Git/aws_sts.sh'
+alias dev='cd $HOME/Work/Git'
+alias de='cd $HOME/Work/Git/data-engineering'
+alias repos='cd $HOME/Work/Git/repos'
+alias learn='cd $HOME/Work/Git/development'
+alias sts='sh $HOME/Work/Git/aws_sts.sh'
 alias refresh='source ~/.zshrc'
 alias k='kubecolor'
 alias kx='kubectx'
@@ -35,7 +35,7 @@ alias tgfmt='terragrunt hclfmt --terragrunt-check --terragrunt-diff'
 alias tf='terraform'
 alias spyder='nohup spyder --new-instance option & disown'
 alias notebook='nohup jupyter-notebook & disown'
-alias jupyter='docker rm pyspark && docker run -d -p 8888:8888 -e NB_UID=1000 -e GRANT_SUDO=yes --user root --name pyspark -v ~/Work/Git:/home/jovyan/work jupyter/pyspark-notebook && docker logs pyspark'export PATH="/usr/local/opt/libpq/bin:$PATH"
+alias jupyter='docker rm pyspark && docker run -d -p 8888:8888 -e NB_UID=1000 -e GRANT_SUDO=yes --user root --name pyspark -v $HOME/Work/Git:/home/jovyan/work jupyter/pyspark-notebook && docker logs pyspark'export PATH="/usr/local/opt/libpq/bin:$PATH"
 alias activate_poetry="source \"\$(poetry env list --full-path | grep Activated | cut -d' ' -f1 )/bin/activate\""
 
 export PATH="/usr/local/opt/libpq/bin:$PATH"
@@ -57,7 +57,7 @@ ns() {
 # }
 
 # vsc() {
-#     local REPO_DIR=~/Work/Git/
+#     local REPO_DIR=$HOME/Work/Git/
 
 #     if [[ -d "$REPO_DIR/$1" ]]; then
 #         cd "$REPO_DIR/$1" || return
@@ -69,7 +69,7 @@ ns() {
 
 # Zsh completion function
 # _vs_completion() {
-#     local REPO_DIR=~/Work/Git/coreops
+#     local REPO_DIR=$HOME/Work/Git/ops
 #     compadd $(ls -d $REPO_DIR/*/ 2>/dev/null | xargs -n 1 basename)
 # }
 
