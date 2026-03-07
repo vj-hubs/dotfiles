@@ -4,24 +4,26 @@
 show_help() {
     echo "Usage: $(basename $0) [option]"
     echo "Options:"
-    echo "  -c, --chat     Clear only chats"
-    echo "  -a, --all      Clear everything (chats and caches)"
+    echo "  -d, --db       Clear only DBs"
+    echo "  -a, --all      Clear everything (DBs and caches)"
     echo "  -h, --help     Show this help message"
     echo ""
-    echo "Example:"
-    echo "  $(basename $0) --chat    # Clears only chats"
-    echo "  $(basename $0) --all     # Clears everything"
 }
 
 # Check if Cursor is running
 check() {
-    if pgrep -x "Cursor" > /dev/null; then
+    if pgrep -x "Cursor" > /dev/null || { [ -n "$CURSOR_SERVER" ] && tasklist.exe 2>/dev/null | grep -qi "cursor.exe"; }; then
         echo "⚠️  Please close Cursor"
         exit 1
     fi
 }
 
 CURSOR_SUPPORT="$HOME/Library/Application Support/Cursor"
+CURSOR_SERVER=""
+if uname -r | grep -qi wsl; then
+    CURSOR_SUPPORT="/mnt/c/Users/User/AppData/Roaming/Cursor"
+    CURSOR_SERVER="$HOME/.cursor-server/data/User"
+fi
 
 clean() {
     for dir in "$@"; do
@@ -32,16 +34,17 @@ clean() {
     done
 }
 
-chat() {
+clear() {
     check
-    echo "📝 Clearing chats"
-    if [ -f "$CURSOR_SUPPORT/User/globalStorage/state.vscdb" ]; then
-        sqlite3 "$CURSOR_SUPPORT/User/globalStorage/state.vscdb" "DELETE FROM cursorDiskKV WHERE key LIKE 'bubbleId%' OR key LIKE 'composerData%';"
-        echo "✅ Chats cleared"
-    else
-        echo "❌ Chats not found"
-    fi
-    clean "$HOME/.cursor/ai-tracking" "$HOME/.cursor/projects"
+    echo "📝 Clearing DBs"
+    local base="$HOME"
+    [ -n "$CURSOR_SERVER" ] && base="/mnt/c/Users/User"
+    local db="$base/.cursor/ai-tracking/ai-code-tracking.db"
+    sqlite3 "$db" "SELECT 'DELETE FROM ' || name || ';' FROM sqlite_master WHERE type='table';" | sqlite3 "$db"
+    echo "✅ Cleared $db"
+    sqlite3 "$CURSOR_SUPPORT/User/globalStorage/state.vscdb" "DELETE FROM cursorDiskKV;"
+    echo "✅ Cleared $CURSOR_SUPPORT/User/globalStorage/state.vscdb"
+    clean "$HOME/.cursor/projects"
 }
 
 cache() {
@@ -56,15 +59,16 @@ cache() {
         "$CURSOR_SUPPORT/GPUCache" \
         "$CURSOR_SUPPORT/User/History" \
         "$CURSOR_SUPPORT/User/workspaceStorage"
+    [ -n "$CURSOR_SERVER" ] && clean "$CURSOR_SERVER/History" "$CURSOR_SERVER/workspaceStorage"
 }
 
 # Main script
 case "$1" in
-    -c|--chat)
-        chat
+    -d|--db)
+        clear
         ;;
     -a|--all)
-        chat
+        clear
         cache
         ;;
     -h|--help)
