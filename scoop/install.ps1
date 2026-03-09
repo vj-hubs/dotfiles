@@ -47,12 +47,12 @@ $packages = @(
     "extras/glazewm",
     "extras/zebar",
     "extras/motrix",
-    "versions/cursor-latest",
     "notepadplusplus",
     "extras/unigetui",
     "scoop-backup",
     "extras/microsoft-teams",
     "nonportable/grammarly-np"
+    "sqlite"
 )
 
 foreach ($package in $packages) {

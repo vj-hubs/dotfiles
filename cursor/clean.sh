@@ -1,18 +1,22 @@
 #!/bin/bash
 
+VERBOSE=false
+log() { $VERBOSE && echo "$@"; return 0; }
+
 # Help function
 show_help() {
-    echo "Usage: $(basename $0) [option]"
+    echo "Usage: $(basename $0) [option] [-v]"
     echo "Options:"
     echo "  -d, --db       Clear only DBs"
     echo "  -a, --all      Clear everything (DBs and caches)"
+    echo "  -v, --verbose  Show detailed output"
     echo "  -h, --help     Show this help message"
     echo ""
 }
 
 # Check if Cursor is running
 check() {
-    if pgrep -x "Cursor" > /dev/null || { [ -n "$CURSOR_SERVER" ] && tasklist.exe 2>/dev/null | grep -qi "cursor.exe"; }; then
+    if pgrep -f "Cursor.app" > /dev/null || { [ -n "$CURSOR_SERVER" ] && tasklist.exe 2>/dev/null | grep -qi "cursor.exe"; }; then
         echo "⚠️  Please close Cursor"
         exit 1
     fi
@@ -29,26 +33,26 @@ clean() {
     for dir in "$@"; do
         if [ -d "$dir" ]; then
             rm -rf "$dir"/*
-            echo "✅ Cleared $dir"
+            log "✅ Cleared $dir"
         fi
     done
 }
 
 clear() {
     check
-    echo "📝 Clearing DBs"
+    log "📝 Clearing DBs"
     local base="$HOME"
     [ -n "$CURSOR_SERVER" ] && base="/mnt/c/Users/User"
     local db="$base/.cursor/ai-tracking/ai-code-tracking.db"
     sqlite3 "$db" "SELECT 'DELETE FROM ' || name || ';' FROM sqlite_master WHERE type='table';" | sqlite3 "$db"
-    echo "✅ Cleared $db"
+    log "✅ Cleared $db"
     sqlite3 "$CURSOR_SUPPORT/User/globalStorage/state.vscdb" "DELETE FROM cursorDiskKV;"
-    echo "✅ Cleared $CURSOR_SUPPORT/User/globalStorage/state.vscdb"
+    log "✅ Cleared $CURSOR_SUPPORT/User/globalStorage/state.vscdb"
     clean "$HOME/.cursor/projects"
 }
 
 cache() {
-    echo "🗑️  Clearing caches"
+    log "🗑️  Clearing caches"
     clean \
         "$CURSOR_SUPPORT/Cache" \
         "$CURSOR_SUPPORT/CachedData" \
@@ -63,7 +67,12 @@ cache() {
 }
 
 # Main script
-case "$1" in
+ACTION=""
+for arg in "$@"; do
+    case $arg in -v|--verbose) VERBOSE=true;; *) ACTION="$arg";; esac
+done
+
+case "$ACTION" in
     -d|--db)
         clear
         ;;
@@ -81,4 +90,4 @@ case "$1" in
         ;;
 esac
 
-echo "✨ All done!"
+log "✨ All done!"
