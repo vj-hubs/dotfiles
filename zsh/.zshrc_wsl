@@ -103,11 +103,11 @@ source $ZSH/oh-my-zsh.sh
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
 
-# Add Homebrew to your PATH
+# Add Homebrew to PATH
 eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
 eval "$(direnv hook zsh)"
 
-# Add Starship to your PATH
+# Add Starship to PATH
 eval -- "$(/home/linuxbrew/.linuxbrew/bin/starship init zsh --print-full-init)"
 source /home/linuxbrew/.linuxbrew/share/zsh-autosuggestions/zsh-autosuggestions.zsh
 plugins=(z
@@ -147,7 +147,6 @@ ns() {
 # }
 
 cp ~/.zshrc /home/devops/Git/development/dotfiles/zsh/.zshrc_wsl
-[[ -f ~/.inshellisense/zsh/init.zsh ]] && source ~/.inshellisense/zsh/init.zsh
 export DISABLE_UNTRACKED_FILES_DIRTY="true"
 export TERRAGRUNT_TFPATH="terraform"
 export TERRAGRUNT_PROVIDER_CACHE=1
