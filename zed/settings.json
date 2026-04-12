@@ -16,7 +16,7 @@
   "icon_theme": {
     "mode": "dark",
     "light": "VSCode Great Icons Theme",
-    "dark": "VSCode Great Icons Theme",
+    "dark": "Material Icon Theme",
   },
   "cursor_shape": "bar",
   "agent": {
@@ -44,10 +44,7 @@
     },
     "github-copilot-cli": {
       "favorite_config_option_values": {
-        "model": [
-          "claude-opus-4.6",
-          "gpt-5.3-codex"
-        ]
+        "model": ["claude-opus-4.6", "gpt-5.3-codex"],
       },
       "type": "registry",
     },
@@ -61,6 +58,8 @@
     "terraform": true,
     "vscode-great-icons": true,
     "zedokai": true,
+    "material-icon-theme": true,
+    "powershell": true,
   },
   "session": {
     "trust_all_worktrees": true,
