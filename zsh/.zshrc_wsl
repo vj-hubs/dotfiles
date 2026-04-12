@@ -139,7 +139,8 @@ alias notebook='nohup jupyter-notebook & disown'
 alias jupyter='docker rm pyspark && docker run -d -p 8888:8888 -e NB_UID=1000 -e GRANT_SUDO=yes --user root --name pyspark -v ~/Git:/home/jovyan/work jupyter/pyspark-notebook && docker logs pyspark'export PATH="/usr/local/opt/libpq/bin:$PATH"
 alias activate_poetry="source \"\$(poetry env list --full-path | grep Activated | cut -d' ' -f1 )/bin/activate\""
 alias devel='cd /mnt/e/linux'
-cp $HOME/.zshrc /mnt/e/linux/wsl/
+cp $HOME/.zshrc /mnt/e/linux/.zshrc_wsl
+export BROWSER=wslview
 export DOCKER_DEFAULT_PLATFORM="linux/amd64"
 export AWS_DEFAULT_REGION="eu-west-1"
 export AWS_VAULT_BACKEND="pass"
