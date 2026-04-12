@@ -47,13 +47,15 @@ export NVM_DIR="$HOME/.nvm"
 ns() {
     kubectl config set-context --current --namespace=$1
 }
-
-gct() {
-    prefix="temp"
-    local repo
+unalias gcl
+gcl() {
+    # prefix="temp"
+    # local repo
     repo=$(basename -s .git "$1")
-    git clone "$1" "$prefix-$repo"
-    code "$prefix-$repo"
+    # git clone "$1" "$prefix-$repo"
+    # code "$prefix-$repo"
+    git clone "$1"
+    code "$repo"
 }
 
 # vs() {
