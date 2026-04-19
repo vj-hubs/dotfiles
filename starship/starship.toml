@@ -75,6 +75,7 @@ $status\
 $os\
 $battery\
 $kubernetes\
+$env_var\
 $aws\
 $cmd_duration
 [╰─](white)$time$character\
@@ -109,3 +110,7 @@ disabled = true
 disabled = false
 style = "bold blue"
 format = '[$symbol](bright-blue)[$context( \($namespace\))]($style) '
+
+[env_var.K8S]
+format = "[⚓k8s]($style) "
+style = "bold blue"

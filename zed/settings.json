@@ -37,6 +37,9 @@
   "agent_servers": {
     "cursor": {
       "favorite_config_option_values": {
+        "mode": [
+          "ask"
+        ],
         "model": [
           "gpt-5.3-codex[reasoning=medium,fast=false]",
           "claude-opus-4-6[thinking=true,context=200k,effort=high,fast=false]",

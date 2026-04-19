@@ -52,6 +52,7 @@ $packages = @(
     "notepadplusplus",
     "extras/microsoft-teams",
     "scoop-backup",
+    "extras/localsend",
     "nonportable/grammarly-np"
     "sqlite"
 )
@@ -62,4 +63,4 @@ foreach ($package in $packages) {
 }
 
 Write-Host "Installation complete!" -ForegroundColor Green
-Write-Host "You may need to restart your terminal for some changes to take effect." -ForegroundColor Yellow 
+Write-Host "You may need to restart your terminal for some changes to take effect." -ForegroundColor Yellow

@@ -28,6 +28,9 @@ wsl -e bash -c "sudo apt-get update -qq && sudo apt-get install -y wslu 2>&1 | t
 wsl -e bash -c "rm -rf ~/.local/share/zed ~/.config/zed ~/.copilot ~/.zed_server ~/.config/github-copilot'"
 wsl -e bash -c "grep -n 'BROWSER' ~/.zshrc 2>/dev/null"
 wsl -e bash -c "echo 'export BROWSER=wslview' >> ~/.zshrc"
+rm -rf ~/.copilot/session-state/*
+rm -rf ~/.cusor/projects/* ~/.cusor/chats/* ~/.cursor/ai*/*.db
+
 ```
 
 ```bash
